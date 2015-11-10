@@ -5,11 +5,13 @@
 require "./pieces.rb"
 
 class Board
+  attr_accessor :all_pieces
   attr_reader :board
 
   #initialize the starting chess board
   def initialize
     @board = Array.new(8) { Array.new(8) }
+    @all_pieces = []
 
     #initilize pawns
     #(0..7).each do |n|
@@ -36,7 +38,10 @@ class Board
     #@board[0][5] = Piece.new("B")
     #@board[0][6] = Piece.new("N")
     @board[0][7] = Rook.new([0, 7], "white")
-
+    @all_pieces.push(@board[0][7])
+    puts @all_pieces.inspect
+    @board[0][7].board = board
+    puts @board[0][7].board
 
   end
 
