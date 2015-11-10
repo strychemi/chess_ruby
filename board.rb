@@ -31,12 +31,12 @@ class Board
 
     #initialize starting white pieces
     @board[0][0] = Rook.new([0,0], "white")
-    #@board[0][1] = Piece.new("N")
+    @board[0][1] = Knight.new([0,1], "white")
     @board[0][2] = Bishop.new([0,2], "white")
     #@board[0][3] = Piece.new("Q")
     #@board[0][4] = Piece.new("K")
     @board[0][5] = Bishop.new([0,5], "white")
-    #@board[0][6] = Piece.new("N")
+    @board[0][6] = Knight.new([0,6], "white")
     @board[0][7] = Rook.new([0, 7], "white")
     #@all_pieces.push(@board[0][7])
     #puts @all_pieces.inspect
