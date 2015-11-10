@@ -14,10 +14,10 @@ class Board
     @all_pieces = []
 
     #initilize pawns
-    #(0..7).each do |n|
-    #  @board[6][n] = Piece.new("p")
-    #  @board[1][n] = Piece.new("P")
-    #end
+    (0..7).each do |n|
+      @board[6][n] = Pawn.new([6,n], "black")
+      @board[1][n] = Pawn.new([1,n], "white")
+    end
 
     #initialize starting black pieces
     @board[7][0] = Rook.new([7,0], "black")
