@@ -3,12 +3,12 @@ class Queen < Piece
   def initialize(pos, color)
     @pos = pos
     @color = color
-    @color == "white" ? @unicode = "\u2657" : @unicode = "\u265D"
-    @delta = [[1,-1], [1,1], [-1,1], [-1,-1]]
+    @color == "white" ? @unicode = "\u2655" : @unicode = "\u265B"
+    @delta = [[1,-1], [1,0], [1,1], [0,1], [-1,1], [-1,0], [-1,-1], [0,-1]]
     @move_history = []
   end
 
-  #generates possible legal moves for bishop
+  #generates possible legal moves for queen
   def generate_moves
     @delta.each do |step|
       (1..7).each do |i|

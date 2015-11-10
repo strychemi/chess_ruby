@@ -20,21 +20,21 @@ class Board
     #end
 
     #initialize starting black pieces
-    #@board[7][0] = Piece.new("r")
-    #@board[7][1] = Piece.new("n")
-    #@board[7][2] = Piece.new("b")
-    #@board[7][3] = Piece.new("q")
-    #@board[7][4] = Piece.new("k")
-    #@board[7][5] = Piece.new("b")
-    #@board[7][6] = Piece.new("n")
-    #@board[7][7] = Piece.new("r")
+    @board[7][0] = Rook.new([7,0], "black")
+    @board[7][1] = Knight.new([7,1], "black")
+    @board[7][2] = Bishop.new([7,2], "black")
+    @board[7][3] = Queen.new([7,3], "black")
+    @board[7][4] = King.new([7,4], "black")
+    @board[7][5] = Bishop.new([7,5], "black")
+    @board[7][6] = Knight.new([7,7], "black")
+    @board[7][7] = Rook.new([7,7], "black")
 
     #initialize starting white pieces
     @board[0][0] = Rook.new([0,0], "white")
     @board[0][1] = Knight.new([0,1], "white")
     @board[0][2] = Bishop.new([0,2], "white")
-    #@board[0][3] = Piece.new("Q")
-    #@board[0][4] = Piece.new("K")
+    @board[0][3] = Queen.new([0,3], "white")
+    @board[0][4] = King.new([0,4], "white")
     @board[0][5] = Bishop.new([0,5], "white")
     @board[0][6] = Knight.new([0,6], "white")
     @board[0][7] = Rook.new([0, 7], "white")

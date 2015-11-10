@@ -8,6 +8,7 @@ class Knight < Piece
     @move_history = []
   end
 
+  #generates possible moves for knight
   def generate_moves
     @delta.each do |step|
       new_pos = [@pos[0] + step[0], @pos[1] + step[1]]
