@@ -47,10 +47,16 @@ class Game
     @board.print_board
 
     while true #win condition
-      puts "Move:"
+      print "Move: "
       input = gets.strip
-      @board.print_board
-      puts "valid input" if valid_input?(input)
+      puts
+      move = valid_input?(input)
+      if move
+        move_piece(move)
+        @board.print_board
+      else
+        next
+      end
       #@board.process_input(input)
       #@board.clear_moves
     end
@@ -66,22 +72,17 @@ class Game
         puts "Not a valid move! The start and end positions are the same!"
         puts
         return false
-      else #if it is a valid user input
+      else #else check other cases
         start_pos = [move[0][1].to_i - 1, @@file_num[move[0][0]]]
         end_pos = [move[1][1].to_i - 1, @@file_num[move[1][0]]]
-        #puts start_pos.inspect
-        #puts end_pos.inspect
         if !@board[start_pos] #if nothing at start position
           puts "There is no piece at #{move[0]}!"
           puts
           return false
-        else #check if move is legal and if so, return true
-          return true
-          #@board[end_pos[0]][end_pos[1]] = @board[start_pos[0]][start_pos[1]]
-          #@board[start_pos[0]][start_pos[1]] = nil
+        else #return the move if it passes all other cases
+          puts
+          return [start_pos, end_pos]
         end
-        puts
-        print_board
       end
     else
       puts "Not a valid input!"
@@ -90,6 +91,12 @@ class Game
     end
   end
 
+  #checks if "move" is within set of move_list of that particular piece
+  #if so, then move the piece
+  def move_piece(move)
+    @board[move[1]]=(@board[move[0]])
+    @board[move[0]]=(nil)
+  end
 end
 
 game = Game.new
