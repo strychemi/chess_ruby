@@ -36,6 +36,8 @@ class Board
     #@board[0][5] = Piece.new("B")
     #@board[0][6] = Piece.new("N")
     @board[0][7] = Rook.new([0, 7], "white")
+
+
   end
 
 #prints board on command line interface

@@ -10,8 +10,8 @@ class Rook < Piece
       8.times do |i|
         next if i.zero?
         new_pos = [pos[0] + step[0] * i, pos[1] + step[1] * i]
-        if valid_coord?(file, new_pos)
-          file.move_list << new_pos
+        if valid_coord?(new_pos)
+          move_list << new_pos
           break if @board[new_pos[0]][new_pos[1]]
         else
           break

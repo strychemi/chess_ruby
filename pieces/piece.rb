@@ -4,8 +4,8 @@
 =end
 
 class Piece
-  attr_accessor :pos, :move_history, :move_list, :delta, :unicode
-  attr_reader :color
+  attr_accessor :pos, :move_history, :move_list, :board
+  attr_reader :color, :delta, :unicode
 
   def initialize(pos, color)
     @pos = pos
@@ -14,16 +14,14 @@ class Piece
   end
 
   #checks if coord array [x,y] is valid space to move on
-  def valid_coord?(curr_piece, coord)
-    white_pieces = "KQBNRP"
-    curr_piece_is_white = white_pieces.include?(curr_piece.piece)
+  #i.e. checks for "coord" for empty square or opposing piece
+  def valid_coord?(coord)
     return false unless coord.all? { |x| x.between?(0, 7) }
-    unless @board[coord[0]][coord[1]].nil?
-      piece_at_coord = @board[coord[0]][coord[1]].piece
-      coord_piece_is_white = white_pieces.include?(piece_at_coord)
-      return false if !(curr_piece_is_white ^ curr_piece_is_white)
+    unless @board[coord[0]][coord[1]].nil? #if square at coord not empty
+      piece_at_coord = @board[coord[0]][coord[1]]
+      return false if self.color == piece_at_coord.color
     end
-    return true
+    true
   end
 
 end
