@@ -8,6 +8,7 @@ class Rook < Piece
     @move_history = []
   end
 
+  #generates possible legal moves for rook (doesn't include castling)
   def generate_moves
     @delta.each do |step|
       (1..7).each do |i|
@@ -21,4 +22,5 @@ class Rook < Piece
       end
     end
   end
+
 end

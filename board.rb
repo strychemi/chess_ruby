@@ -30,18 +30,18 @@ class Board
     #@board[7][7] = Piece.new("r")
 
     #initialize starting white pieces
-    #@board[0][0] = Piece.new("R")
+    @board[0][0] = Rook.new([0,0], "white")
     #@board[0][1] = Piece.new("N")
-    #@board[0][2] = Piece.new("B")
+    @board[0][2] = Bishop.new([0,2], "white")
     #@board[0][3] = Piece.new("Q")
     #@board[0][4] = Piece.new("K")
-    #@board[0][5] = Piece.new("B")
+    @board[0][5] = Bishop.new([0,5], "white")
     #@board[0][6] = Piece.new("N")
     @board[0][7] = Rook.new([0, 7], "white")
-    @all_pieces.push(@board[0][7])
-    puts @all_pieces.inspect
-    @board[0][7].board = board
-    puts @board[0][7].board
+    #@all_pieces.push(@board[0][7])
+    #puts @all_pieces.inspect
+    #@board[0][7].board = board
+    #puts @board[0][7].board
 
   end
 
