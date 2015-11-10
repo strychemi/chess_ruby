@@ -56,13 +56,22 @@ def print_board
         print "\u2022" #bullet point
       else
         print file.unicode # prints piece unicode
-        #print file.piece
       end
     end
     puts "\u2502" #vertical line
   end
   puts "   A B C D E F G H"
   puts
+end
+
+#utility getter method to access the 8x8 array masked by Board class
+def [](pos)
+  @board[pos[0]][pos[1]]
+end
+
+#utility setter method to set any "pos" in 8x8 array to "value"
+def []=(pos, value)
+  @board[pos[0]][pos[1]] = value
 end
 
 end

@@ -14,7 +14,7 @@ class Piece
   end
 
   #checks if coord array [x,y] is valid space to move on
-  #i.e. checks for "coord" for empty square or opposing piece
+  #i.e. checks for "coord" for empty square or piece of opposing color
   def valid_coord?(coord)
     return false unless coord.all? { |x| x.between?(0, 7) }
     unless @board[coord[0]][coord[1]].nil? #if square at coord not empty
