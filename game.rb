@@ -98,10 +98,17 @@ class Game
   #then update its position (pos) and move history (move_history)
   def move_piece(move)
     curr_piece = @board[move[0]]
-    @board[move[1]] = curr_piece
-    @board[move[0]] = nil
-    curr_piece.move_history << move
-    curr_piece.pos = move[1]
+    puts curr_piece.move_list.inspect
+    puts move.inspect
+    if curr_piece.move_list.include?(move[1])
+      @board[move[1]] = curr_piece
+      @board[move[0]] = nil
+      curr_piece.move_history << move
+      curr_piece.pos = move[1]
+    else
+      puts "Not a legal move!"
+      puts
+    end
   end
 end
 
