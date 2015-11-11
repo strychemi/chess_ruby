@@ -44,7 +44,7 @@ class Board
     #puts @all_pieces.inspect
     #@board[0][7].board = board
     #puts @board[0][7].board
-    puts @board[1][0].move_list.inspect
+    #puts @board[1][0].move_list.inspect
   end
 
   #prints board on command line interface

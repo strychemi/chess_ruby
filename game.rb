@@ -46,16 +46,35 @@ class Game
     puts
     @board.print_board
 
+    turn = 1
     while true #win condition
-      print "Move: "
+      if turn % 2 == 1
+        print "Move #{turn} [White's move]: "
+      else
+        print "Move #{turn} [Black's move]: "
+      end
       input = gets.strip
-      puts
+      #puts
       move = valid_input?(input)
       if move
-        move_piece(move)
-        @board.update_board
-        #puts @board[[5,0]].move_list.inspect
-        @board.print_board
+        #check if white's move
+        if turn % 2 == 1 && @board[move[0]].color == "white"
+          if move_piece(move)
+            @board.update_board
+            @board.print_board
+            turn += 1
+          end
+        #check black's move
+        elsif turn % 2 == 0 && @board[move[0]].color == "black"
+          if move_piece(move)
+            @board.update_board
+            @board.print_board
+            turn += 1
+          end
+        else
+          puts "Move a correct colored piece!"
+          puts
+        end
       else
         next
       end
@@ -87,6 +106,7 @@ class Game
         end
       end
     else
+      puts
       puts "Not a valid input!"
       puts
       return false
@@ -98,19 +118,22 @@ class Game
   #then update its position (pos) and move history (move_history)
   def move_piece(move)
     curr_piece = @board[move[0]]
-    puts curr_piece.move_list.inspect
-    puts move.inspect
+    #puts curr_piece.move_list.inspect
+    #puts move.inspect
     if curr_piece.move_list.include?(move[1])
       @board[move[1]] = curr_piece
       @board[move[0]] = nil
       curr_piece.move_history << move
       curr_piece.pos = move[1]
+      return true
     else
-      puts "Not a legal move!"
+      puts "Not a legal move for this #{curr_piece.color} #{curr_piece.class}!"
       puts
+      return false
     end
   end
 end
 
+#create a new game instance and start game!
 game = Game.new
 game.play
