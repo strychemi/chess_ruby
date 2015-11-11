@@ -6,6 +6,7 @@ class Bishop < Piece
     @color == "white" ? @unicode = "\u2657" : @unicode = "\u265D"
     @delta = [[1,-1], [1,1], [-1,1], [-1,-1]]
     @move_history = []
+    @move_list = []
   end
 
   #generates possible legal moves for bishop
@@ -15,7 +16,7 @@ class Bishop < Piece
         new_pos = [@pos[0] + step[0] * i, @pos[1] + step[1] * i]
         if valid_coord?(new_pos)
           @move_list << new_pos
-          break if @board[new_pos[0]][new_pos[1]]
+          break if @board[new_pos]
         else
           break
         end

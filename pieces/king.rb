@@ -6,6 +6,7 @@ class King < Piece
     @color == "white" ? @unicode = "\u2654" : @unicode = "\u265A"
     @delta = [[1,-1], [1,0], [1,1], [0,1], [-1,1], [-1,0], [-1,-1], [0,-1]]
     @move_history = []
+    @move_list = []
   end
 
   #generates possible legal moves for King

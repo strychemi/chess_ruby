@@ -53,6 +53,8 @@ class Game
       move = valid_input?(input)
       if move
         move_piece(move)
+        @board.update_board
+        #puts @board[[5,0]].move_list.inspect
         @board.print_board
       else
         next
@@ -93,9 +95,13 @@ class Game
 
   #checks if "move" is within set of move_list of that particular piece
   #if so, then move the piece
+  #then update its position (pos) and move history (move_history)
   def move_piece(move)
-    @board[move[1]]=(@board[move[0]])
-    @board[move[0]]=(nil)
+    curr_piece = @board[move[0]]
+    @board[move[1]] = curr_piece
+    @board[move[0]] = nil
+    curr_piece.move_history << move
+    curr_piece.pos = move[1]
   end
 end
 

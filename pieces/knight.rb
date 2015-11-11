@@ -6,6 +6,7 @@ class Knight < Piece
     @color == "white" ? @unicode = "\u2658" : @unicode = "\u265E"
     @delta = [[2,1], [1,2], [-1,2], [-2,1], [-2,-1], [-1,-2], [1,-2], [2,-1]]
     @move_history = []
+    @move_list = []
   end
 
   #generates possible moves for knight
