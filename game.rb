@@ -48,7 +48,8 @@ class Game
     @board.print_board
 
     turn = 1
-    while true #win condition
+    color = "white"
+    until @board.end_conditions?(color) #win condition
       if turn % 2 == 1
         print "Move #{turn} [White's move]: "
       else
@@ -64,6 +65,7 @@ class Game
             @board.update_board
             @board.print_board
             turn += 1
+            color = "black"
           end
         #check black's move
         elsif turn % 2 == 0 && @board[move[0]].color == "black"
@@ -71,6 +73,7 @@ class Game
             @board.update_board
             @board.print_board
             turn += 1
+            color = "white"
           end
         else
           puts "Move a correct colored piece!"
@@ -79,9 +82,9 @@ class Game
       else
         next
       end
-      #@board.process_input(input)
-      #@board.clear_moves
     end
+
+    puts color == "white" ? "Black victory!" : "White victory!"
   end
 
   #checks for valid user input

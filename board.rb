@@ -5,12 +5,13 @@
 require "./pieces.rb"
 
 class Board
-  attr_accessor :all_pieces, :board
+  attr_accessor :all_pieces, :board, :board_history
 
   #initialize the starting chess board
   def initialize
     @board = Array.new(8) { Array.new(8) }
     @all_pieces = []
+    @board_history = []
   end
 
   def start_board
@@ -83,7 +84,7 @@ class Board
     end
     #clear previous state of @all_pieces
     @all_pieces = []
-    #adds every piece obj to all_pieces class variable
+    #adds every piece obj to all_pieces instance variable
     @board.each do |row|
       row.each do |col|
         @all_pieces << col if !col.nil?
@@ -96,6 +97,8 @@ class Board
       n.board = self
       n.generate_moves
     end
+    #add this state to the board_history instance variable
+    @board_history << @board
   end
 
   #method to find if a king is in check
@@ -116,7 +119,7 @@ class Board
   end
 
   #method to determine checkmake
-  def checkmake?(color)
+  def checkmate?(color)
     #if not in check, then can't be in checkmate!
     return false unless in_check?(color)
     color_pieces = @all_pieces.select { |piece| piece.color == color }
@@ -127,5 +130,33 @@ class Board
     end
   end
 
-  
+  #method to determine stalemate
+  def stalemate?(color)
+    #if color has no more legal moves and is not in check
+    return false if in_check?(color)
+    color_pieces = @all_pieces.select { |piece| piece.color == color }
+    color_pieces.all? do |piece|
+      piece.non_check_moves.empty?
+    end
+    #conditionals for stalemate by repitition
+    board_count = Hash.new(0) #hash to count board states
+    #count every board state in history
+    #if there's a board state being repeated 3 times, it's a stalemate
+    @board_history.each do |state|
+      board_count[state] += 1
+    end
+    #if there's a board state being repeated 3 times, it's a stalemate
+    board_count.any? do |state, count|
+      count >= 3
+    end
+  end
+
+  #method to check board end conditions
+  def end_conditions?(color)
+    color_pieces = @all_pieces.select { |piece| piece.color == color }
+    #keep this line for debugging purposes, prints current color's piece list and move list
+    #color_pieces.each { |piece| puts "#{piece.class}:#{piece.non_check_moves.inspect}" }
+    return false if color_pieces.any? { |piece| !piece.non_check_moves.empty? }
+    return checkmate?(color) || stalemate?(color)
+  end
 end
