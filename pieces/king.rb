@@ -17,7 +17,7 @@ class King < Piece
     end
     #if castling conditions are met, add the appropriate king moves
     #if king hasn't moved and is not currently in check
-    if @move_history.empty? && @board.in_check?(@color)
+    if @move_history.empty? && !@board.in_check?(@color)
       #select rooks that are the same color as king and hasn't moved yet
       rooks = @board.all_pieces.select { |piece| piece.class == Rook && piece.color == @color && piece.move_history.empty? }
       rooks.each do |rook|
@@ -28,7 +28,7 @@ class King < Piece
         #if the squares between the current rook and king are are empty
         #check if the king's castle path for any potential checks
         #if
-        if between.all? { |file| @board[@pos[0], file].nil? }
+        if between.all? { |file| @board[[@pos[0], file]].nil? }
           if rook_file < king_file
             if between.all? { |file| into_check?([@pos[0], file]) == false }
               @move_list << [@pos[0], 2]

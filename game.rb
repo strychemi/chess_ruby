@@ -122,12 +122,26 @@ class Game
   #then update its position (pos) and move history (move_history)
   def move_piece(move)
     curr_piece = @board[move[0]]
-    
     if curr_piece.non_check_moves.include?(move[1])
       @board[move[1]] = curr_piece
       @board[move[0]] = nil
       curr_piece.move_history << move
       curr_piece.pos = move[1]
+      #if castling, move rook too
+      if curr_piece.class == King && (move[0][1] - move[1][1]).abs == 2
+        #find the appropriate rook to move
+        start_rank = move[0][0]
+        start_file = move[1][1] == 2 ? 0 : 7
+        start_pos = [start_rank, start_file]
+        rook = @board[start_pos]
+        #determine its final location, then move it.
+        end_file = start_file == 0 ? 3 : 5
+        end_pos = [start_rank, end_file]
+        @board[end_pos] = rook
+        @board[start_pos] = nil
+        rook.move_history << end_pos
+        rook.pos = end_pos
+      end
       return true
     else
       puts "Your king is still in check!" if @board.in_check?(curr_piece.color)

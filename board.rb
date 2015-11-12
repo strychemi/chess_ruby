@@ -28,7 +28,7 @@ class Board
     @board[7][3] = Queen.new([7,3], "black")
     @board[7][4] = King.new([7,4], "black")
     @board[7][5] = Bishop.new([7,5], "black")
-    @board[7][6] = Knight.new([7,7], "black")
+    @board[7][6] = Knight.new([7,6], "black")
     @board[7][7] = Rook.new([7,7], "black")
 
     #initialize starting white pieces
@@ -155,7 +155,7 @@ class Board
   def end_conditions?(color)
     color_pieces = @all_pieces.select { |piece| piece.color == color }
     #keep this line for debugging purposes, prints current color's piece list and move list
-    #color_pieces.each { |piece| puts "#{piece.class}:#{piece.non_check_moves.inspect}" }
+    color_pieces.each { |piece| puts "#{piece.class}:#{piece.non_check_moves.inspect}" }
     puts "CHECK!" if in_check?(color)
     return false if color_pieces.any? { |piece| !piece.non_check_moves.empty? }
     return checkmate?(color) || stalemate?(color)
