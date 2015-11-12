@@ -5,13 +5,14 @@
 require "./pieces.rb"
 
 class Board
-  attr_accessor :all_pieces, :board, :board_history
+  attr_accessor :all_pieces, :board, :board_history, :move_record
 
   #initialize the starting chess board
   def initialize
     @board = Array.new(8) { Array.new(8) }
     @all_pieces = []
     @board_history = []
+    @move_record = []
   end
 
   def start_board
@@ -159,5 +160,11 @@ class Board
     puts "CHECK!" if in_check?(color)
     return false if color_pieces.any? { |piece| !piece.non_check_moves.empty? }
     return checkmate?(color) || stalemate?(color)
+  end
+
+  def recent_piece
+    return nil if @move_record.empty?
+    #puts @move_record.last.inspect
+    @board[@move_record.last.last[0]][@move_record.last.last[1]]
   end
 end

@@ -62,6 +62,8 @@ class Game
         #check if white's move
         if turn % 2 == 1 && @board[move[0]].color == "white"
           if move_piece(move)
+            @board.move_record << move
+            #puts @board.move_record.inspect
             @board.update_board
             @board.print_board
             turn += 1
@@ -70,6 +72,8 @@ class Game
         #check black's move
         elsif turn % 2 == 0 && @board[move[0]].color == "black"
           if move_piece(move)
+            @board.move_record << move
+            #puts @board.move_record.inspect
             @board.update_board
             @board.print_board
             turn += 1
@@ -123,6 +127,19 @@ class Game
   def move_piece(move)
     curr_piece = @board[move[0]]
     if curr_piece.non_check_moves.include?(move[1])
+      #if en passant, remove captured piece
+      if curr_piece.class == Pawn
+        puts curr_piece.can_en_passant?
+        puts "HELKFDSJLFKD"
+        if curr_piece.can_en_passant?
+          puts "HOMFDMSKFDFLSJFKDSLFJSDKLF JDSFKLSJFKLEJ FE FJSKLF"
+          rank = move[0][0]
+          col = move[1][1]
+          captured_pawn_pos = [rank,col]
+          puts captured_pawn_pos.inspect
+          @board[captured_pawn_pos] = nil
+        end
+      end
       @board[move[1]] = curr_piece
       @board[move[0]] = nil
       curr_piece.move_history << move
