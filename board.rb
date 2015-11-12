@@ -105,6 +105,7 @@ class Board
     else
       king = @all_pieces.select { |piece| piece.class == King && piece.color == "black"}[0]
     end
+    #iterate through every existing piece and check its move_list for a king in one of the move positions
     @all_pieces.each do |piece|
       #if piece is not a king and the opposing color
       if piece.class != King && piece.color != color
@@ -114,7 +115,17 @@ class Board
     return false
   end
 
-  def make_copy(board)
-    self.board = Marshal.load( Marshal.dump(board) )
+  #method to determine checkmake
+  def checkmake?(color)
+    #if not in check, then can't be in checkmate!
+    return false unless in_check?(color)
+    color_pieces = @all_pieces.select { |piece| piece.color == color }
+    #utilize Enumerable#all? method to determine if all pieces of "color"
+    # have no more non-check moves. Returns true or false as a result.
+    color_pieces.all? do |piece|
+      piece.non_check_moves.empty?
+    end
   end
+
+  
 end
