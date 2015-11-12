@@ -15,10 +15,7 @@ class King < Piece
       new_pos = [@pos[0] + step[0], @pos[1] + step[1]]
       @move_list << new_pos if valid_coord?(new_pos)
     end
-  end
-
-  #if castling conditions are met, add the appropriate king moves
-  def generate_castling
+    #if castling conditions are met, add the appropriate king moves
     #if king hasn't moved and is not currently in check
     if @move_history.empty? && @board.in_check?(@color)
       #select rooks that are the same color as king and hasn't moved yet
@@ -46,4 +43,5 @@ class King < Piece
       end
     end
   end
+
 end
