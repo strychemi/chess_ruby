@@ -29,6 +29,7 @@ class Game
 
   def initialize
     @board = Board.new
+    @board.start_board
   end
 
   def play
@@ -120,14 +121,14 @@ class Game
     curr_piece = @board[move[0]]
     #puts curr_piece.move_list.inspect
     #puts move.inspect
-    if curr_piece.move_list.include?(move[1])
+    if curr_piece.non_check_moves.include?(move[1])
       @board[move[1]] = curr_piece
       @board[move[0]] = nil
       curr_piece.move_history << move
       curr_piece.pos = move[1]
       return true
     else
-      puts "Not a legal move for this #{curr_piece.color} #{curr_piece.class}!"
+      puts "Not a legal move for this #{curr_piece.color} #{curr_piece.class}! Or your King is in check!"
       puts
       return false
     end

@@ -5,14 +5,15 @@
 require "./pieces.rb"
 
 class Board
-  attr_accessor :all_pieces
-  attr_reader :board
+  attr_accessor :all_pieces, :board
 
   #initialize the starting chess board
   def initialize
     @board = Array.new(8) { Array.new(8) }
     @all_pieces = []
+  end
 
+  def start_board
     #initilize pawns
     (0..7).each do |n|
       @board[6][n] = Pawn.new([6,n], "black")
@@ -41,10 +42,6 @@ class Board
 
     #update board
     update_board
-    #puts @all_pieces.inspect
-    #@board[0][7].board = board
-    #puts @board[0][7].board
-    #puts @board[1][0].move_list.inspect
   end
 
   #prints board on command line interface
@@ -99,5 +96,25 @@ class Board
       n.board = self
       n.generate_moves
     end
+  end
+
+  #method to find if a king is in check
+  def in_check?(color)
+    if color == "white"
+      king = @all_pieces.select { |piece| piece.class == King && piece.color == "white"}[0]
+    else
+      king = @all_pieces.select { |piece| piece.class == King && piece.color == "black"}[0]
+    end
+    @all_pieces.each do |piece|
+      #if piece is not a king and the opposing color
+      if piece.class != King && piece.color != color
+        return true if piece.move_list.include?(king.pos)
+      end
+    end
+    return false
+  end
+
+  def make_copy(board)
+    self.board = Marshal.load( Marshal.dump(board) )
   end
 end
