@@ -156,6 +156,7 @@ class Board
     color_pieces = @all_pieces.select { |piece| piece.color == color }
     #keep this line for debugging purposes, prints current color's piece list and move list
     #color_pieces.each { |piece| puts "#{piece.class}:#{piece.non_check_moves.inspect}" }
+    puts "CHECK!" if in_check?(color)
     return false if color_pieces.any? { |piece| !piece.non_check_moves.empty? }
     return checkmate?(color) || stalemate?(color)
   end

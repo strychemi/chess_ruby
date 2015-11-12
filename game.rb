@@ -83,7 +83,7 @@ class Game
         next
       end
     end
-
+    print "Checkmate! "
     puts color == "white" ? "Black victory!" : "White victory!"
   end
 
@@ -122,8 +122,7 @@ class Game
   #then update its position (pos) and move history (move_history)
   def move_piece(move)
     curr_piece = @board[move[0]]
-    #puts curr_piece.move_list.inspect
-    #puts move.inspect
+    
     if curr_piece.non_check_moves.include?(move[1])
       @board[move[1]] = curr_piece
       @board[move[0]] = nil
@@ -131,7 +130,8 @@ class Game
       curr_piece.pos = move[1]
       return true
     else
-      puts "Not a legal move for this #{curr_piece.color} #{curr_piece.class}! Or your King is in check!"
+      puts "Your king is still in check!" if @board.in_check?(curr_piece.color)
+      puts "Not a legal move for this #{curr_piece.color} #{curr_piece.class}!"
       puts
       return false
     end
